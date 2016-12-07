@@ -91,25 +91,25 @@ gradu8Services.factory('Users', function($http, $window) {
   var baseUrl = "https://45.55.219.233:3001"
   var getUserFBHandler = function(fbId) {
     var whereUrl = 'where={"facebookId":"'+ fbId +'"}';
-    return $https.get(baseUrl + '/api/users/?' + whereUrl);
+    return $http.get(baseUrl + '/api/users/?' + whereUrl);
   };
   var getUserHandler = function(userId) {
-    return $https.get(baseUrl + '/api/users/' + userId);
+    return $http.get(baseUrl + '/api/users/' + userId);
   };
   var addUserHandler = function(fbId) {
-    return $https.post(baseUrl + '/api/users/', {facebookId: fbId});
+    return $http.post(baseUrl + '/api/users/', {facebookId: fbId});
   };
   var putUserHandler = function(userObj) {
     console.log("put services", userObj);
-    return $https.put(baseUrl + '/api/users/' + userObj._id , userObj);
+    return $http.put(baseUrl + '/api/users/' + userObj._id , userObj);
   };
   var getUserClassesHandler = function(fbId) {
     var whereUrl = 'where={"facebookId":"'+ fbId +'"}';
     var selectUrl = 'select={classes:1}';
-    return $https.get(baseUrl + '/api/users/?' + whereUrl + '&' + selectUrl);
+    return $http.get(baseUrl + '/api/users/?' + whereUrl + '&' + selectUrl);
   };
   var addUserClassesHandler = function(userId, classes) {
-    var promise = $https.get(baseUrl + '/api/users/' + userId).success(function(data) {
+    var promise = $http.get(baseUrl + '/api/users/' + userId).success(function(data) {
       var userObj = data.data;
       console.log("addUserClassesHandler, passed first get. User:", data);
       if (userObj.classes)
@@ -117,44 +117,44 @@ gradu8Services.factory('Users', function($http, $window) {
       else
         userObj.classes = classes;
       console.log("this is the user that will be saved", userObj);
-      return $https.put(baseUrl + '/api/users/' + userObj._id,  userObj);
+      return $http.put(baseUrl + '/api/users/' + userObj._id,  userObj);
     });
     return promise;
   };
   var deleteUserClassHandler = function(fbId, _class) {
     var whereUrl = 'where={"facebookId":"'+ fbId +'"}';
-    return $https.get(baseUrl + '/api/users/?' + whereUrl).success(function(data) {
+    return $http.get(baseUrl + '/api/users/?' + whereUrl).success(function(data) {
       var userObj = data.data;
       var index = userObj.classes.indexOf(_class);
       if (index > -1) {
         userObj.classes.splice(index, 1);
       }
-      $https.put(baseUrl + '/api/users/' + userObj._id, userObj);
+      $http.put(baseUrl + '/api/users/' + userObj._id, userObj);
     });
   };
   var getUserLabelsHandler = function(fbId) {
     var whereUrl = 'where={"facebookId":"'+ fbId +'"}';
     var selectUrl = 'select={labels:1}';
-    return $https.get(baseUrl + '/api/users/?' + whereUrl + '&' + selectUrl);
+    return $http.get(baseUrl + '/api/users/?' + whereUrl + '&' + selectUrl);
   };
   var addUserLabelsHandler = function(fbId, labels) {
     var whereUrl = 'where={"facebookId":"'+ fbId +'"}';
-    return $https.get(baseUrl + '/api/users/?' + whereUrl).success(function(data) {
+    return $http.get(baseUrl + '/api/users/?' + whereUrl).success(function(data) {
       var userObj = data.data;
       // TODO check somewhere that classes make sense?
       userObj.labels.push(labels);
-      $https.put(baseUrl + '/api/users/' + userObj._id, userObj);
+      $http.put(baseUrl + '/api/users/' + userObj._id, userObj);
     });
   };
   var deleteUserLabelHandler = function(fbId, label) {
     var whereUrl = 'where={"facebookId":"'+ fbId +'"}';
-    return $https.get(baseUrl + '/api/users/?' + whereUrl).success(function(data) {
+    return $http.get(baseUrl + '/api/users/?' + whereUrl).success(function(data) {
       var userObj = data.data;
       var index = userObj.labels.indexOf(label);
       if (index > -1) {
         userObj.labels.splice(index, 1);
       }
-      $https.put(baseUrl + '/api/users/' + userObj._id, userObj);
+      $http.put(baseUrl + '/api/users/' + userObj._id, userObj);
     });
   };
 
@@ -177,18 +177,18 @@ gradu8Services.factory('Classes', function($http, $window) {
   var baseUrl = "https://45.55.219.233:3001";
   var getDepartmentsHandler = function(){
     var distinctUrl = 'distinct="department"';
-      return $https.get(baseUrl + '/api/classes/?' + distinctUrl);
+      return $http.get(baseUrl + '/api/classes/?' + distinctUrl);
   };
   var getClassHandler = function(classId){
-      return $https.get(baseUrl + '/api/classes/' + classId);
+      return $http.get(baseUrl + '/api/classes/' + classId);
   };
   var getPublicClassesHandler = function() {
     var whereUrl = 'where={"public": true}&limit=1000';
-    return $https.get(baseUrl + '/api/classes/?' + whereUrl);
+    return $http.get(baseUrl + '/api/classes/?' + whereUrl);
   };
   var getDepartmentClassesHandler = function(department) {
     var whereUrl = 'where={"department": "'+ department + '"}';
-    return $https.get(baseUrl + '/api/classes/?' + whereUrl);
+    return $http.get(baseUrl + '/api/classes/?' + whereUrl);
   };
 
   var addClassHandler = function() {
@@ -218,23 +218,23 @@ gradu8Services.factory('Classes', function($http, $window) {
 gradu8Services.factory('Labels', function($http, $window) {
   var baseUrl = "https://45.55.219.233:3001"
   var getLabelHandler = function(labelId){
-      return $https.get(baseUrl + '/api/labels/' + labelId);
+      return $http.get(baseUrl + '/api/labels/' + labelId);
   };
 
   var getPublicLabelsHandler = function() {
     var whereUrl = 'where={"public": true}';
-    return $https.get(baseUrl + '/api/labels/?' + whereUrl);
+    return $http.get(baseUrl + '/api/labels/?' + whereUrl);
   };
 
   var addLabelHandler = function(name, color) {
-    return $https.post(baseUrl + '/api/labels/', {
+    return $http.post(baseUrl + '/api/labels/', {
       name: name,
       color: color,
       public: false
     });
   };
   var updateLabelHandler = function(labelId, name, color) {
-    return $https.put(baseUrl + '/api/labels/' + labelId, {
+    return $http.put(baseUrl + '/api/labels/' + labelId, {
       name: name,
       color: color,
       public: false
@@ -243,7 +243,7 @@ gradu8Services.factory('Labels', function($http, $window) {
   var deleteLabelHandler = function(labelId) {
     return getLabelHandler(labelId).success(function(data) {
       var labelObj = data.data;
-      $https.delete(baseUrl + '/api/labels/' + labelObj._id);
+      $http.delete(baseUrl + '/api/labels/' + labelObj._id);
     });
   };
 
@@ -260,10 +260,10 @@ gradu8Services.factory('Labels', function($http, $window) {
 gradu8Services.factory('Majors', function($http, $window) {
   var baseUrl = "https://45.55.219.233:3001"
   var getAllMajorsHandler = function(majorId){
-      return $https.get(baseUrl + '/api/majors');
+      return $http.get(baseUrl + '/api/majors');
   };
   var getMajorHandler = function(majorId){
-      return $https.get(baseUrl + '/api/majors/' + majorId);
+      return $http.get(baseUrl + '/api/majors/' + majorId);
   };
   return {
     getAllMajors: getAllMajorsHandler,
@@ -275,10 +275,10 @@ gradu8Services.factory('Majors', function($http, $window) {
 gradu8Services.factory('Minors', function($http, $window) {
   var baseUrl = "https://45.55.219.233:3001"
   var getAllMinorsHandler = function(majorId){
-      return $https.get(baseUrl + '/api/minors');
+      return $http.get(baseUrl + '/api/minors');
   };
   var getMinorHandler = function(minorId){
-      return $https.get(baseUrl + '/api/minors/' + minorId);
+      return $http.get(baseUrl + '/api/minors/' + minorId);
   };
   return {
     getAllMinors: getAllMinorsHandler,
@@ -290,10 +290,10 @@ gradu8Services.factory('Minors', function($http, $window) {
 gradu8Services.factory('Universities', function($http, $window) {
   var baseUrl = "https://45.55.219.233:3001"
   var getAllSchoolsHandler = function(majorId){
-      return $https.get(baseUrl + '/api/schools');
+      return $http.get(baseUrl + '/api/schools');
   };
   var getSchoolHandler = function(majorId){
-      return $https.get(baseUrl + '/api/schools/' + majorId);
+      return $http.get(baseUrl + '/api/schools/' + majorId);
   };
   return {
     getAllSchools: getAllSchoolsHandler,
