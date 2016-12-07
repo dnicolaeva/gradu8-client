@@ -88,7 +88,7 @@ gradu8Services.factory('srvAuth', function($http, $window, $rootScope) {
 });
 
 gradu8Services.factory('Users', function($http, $window) {
-  var baseUrl = "https://45.55.219.233:3001"
+  var baseUrl = "https://gradu8-server.herokuapp.com"
   var getUserFBHandler = function(fbId) {
     var whereUrl = 'where={"facebookId":"'+ fbId +'"}';
     return $http.get(baseUrl + '/api/users/?' + whereUrl);
@@ -174,7 +174,7 @@ gradu8Services.factory('Users', function($http, $window) {
 
 
 gradu8Services.factory('Classes', function($http, $window) {
-  var baseUrl = "https://45.55.219.233:3001";
+  var baseUrl = "https://gradu8-server.herokuapp.com";
   var getDepartmentsHandler = function(){
     var distinctUrl = 'distinct="department"';
       return $http.get(baseUrl + '/api/classes/?' + distinctUrl);
@@ -216,7 +216,7 @@ gradu8Services.factory('Classes', function($http, $window) {
 
 
 gradu8Services.factory('Labels', function($http, $window) {
-  var baseUrl = "https://45.55.219.233:3001"
+  var baseUrl = "https://gradu8-server.herokuapp.com";
   var getLabelHandler = function(labelId){
       return $http.get(baseUrl + '/api/labels/' + labelId);
   };
@@ -258,7 +258,7 @@ gradu8Services.factory('Labels', function($http, $window) {
 
 
 gradu8Services.factory('Majors', function($http, $window) {
-  var baseUrl = "https://45.55.219.233:3001"
+  var baseUrl = "https://gradu8-server.herokuapp.com"
   var getAllMajorsHandler = function(majorId){
       return $http.get(baseUrl + '/api/majors');
   };
@@ -273,7 +273,7 @@ gradu8Services.factory('Majors', function($http, $window) {
 
 
 gradu8Services.factory('Minors', function($http, $window) {
-  var baseUrl = "https://45.55.219.233:3001"
+  var baseUrl = "https://gradu8-server.herokuapp.com"
   var getAllMinorsHandler = function(majorId){
       return $http.get(baseUrl + '/api/minors');
   };
@@ -288,7 +288,7 @@ gradu8Services.factory('Minors', function($http, $window) {
 
 
 gradu8Services.factory('Universities', function($http, $window) {
-  var baseUrl = "https://45.55.219.233:3001"
+  var baseUrl = "https://gradu8-server.herokuapp.com"
   var getAllSchoolsHandler = function(majorId){
       return $http.get(baseUrl + '/api/schools');
   };
